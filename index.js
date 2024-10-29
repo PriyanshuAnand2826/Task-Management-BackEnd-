@@ -5,12 +5,14 @@ dotenv.config()
 const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 
 
 //requiring env variables 
 const port =process.env.PORT
 const UserRouter = require('./Routes/user')
+const TaskRouter = require('./Routes/task')
 
 
 
@@ -18,6 +20,7 @@ const UserRouter = require('./Routes/user')
 const {incomingRequestLogger} = require('./middlewares/index')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
 
 
 
@@ -31,6 +34,7 @@ app.use(incomingRequestLogger)
 
 //connection routes with index.js
 app.use('/user',UserRouter)
+app.use('/task',TaskRouter)
 
 
 
