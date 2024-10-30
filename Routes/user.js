@@ -81,8 +81,23 @@ router.get('/alluser',async(req,resp)=>{
 router.get("/search/:char",async(req,resp)=>{
   try {
     const {char} =req.params;
+    if (!char) {
+      return resp.status(201).json({
+      success: true,
+      message: "Search parameter is missing.",
+      });
+      }
+      
     const users = await User.find({email:new RegExp(char,"i")}).select("-_id -password")
-    return resp.status(200).json({success:true,message:"User filtered on the basis of search",user:users})
+    if (users.length === 0) {
+      return resp.status(201).json({
+      success: true,
+      message: "No users found with the specified criteria.",
+      user: users,
+      });
+      }
+      
+    return resp.status(200).json({success:true,message:"User filtered on the basis of your search",user:users})
   } catch (error) {
     return resp.status(400).json({success:false,message:error.message})
   }

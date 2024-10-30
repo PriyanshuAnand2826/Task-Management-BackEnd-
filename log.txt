@@ -139,3 +139,10 @@ GET /user/search/an ::1 2024-10-29T19:57:59.477Z
 GET /user/search/m ::1 2024-10-29T19:58:14.151Z
 GET /user/search/mi ::1 2024-10-29T19:58:25.952Z
 GET /user/search/pri ::1 2024-10-29T19:58:34.353Z
+POST /user/register ::1 2024-10-29T20:36:10.688Z
+POST /user/register ::1 2024-10-29T20:36:23.511Z
+POST /user/register ::1 2024-10-29T20:36:28.220Z
+POST /user/login ::1 2024-10-29T20:36:40.279Z
+POST /user/login ::1 2024-10-29T20:36:44.133Z
+POST /user/register ::1 2024-10-29T20:38:17.445Z
+POST /user/login ::1 2024-10-29T20:38:30.610Z
