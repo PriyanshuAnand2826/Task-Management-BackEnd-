@@ -82,9 +82,11 @@ router.get("/search/:char",async(req,resp)=>{
   try {
     const {char} =req.params;
     if (!char) {
+      const users=await User.find()
       return resp.status(201).json({
       success: true,
-      message: "Search parameter is missing.",
+      message: "List of all users",
+      data:users
       });
       }
       

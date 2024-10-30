@@ -146,3 +146,6 @@ POST /user/login ::1 2024-10-29T20:36:40.279Z
 POST /user/login ::1 2024-10-29T20:36:44.133Z
 POST /user/register ::1 2024-10-29T20:38:17.445Z
 POST /user/login ::1 2024-10-29T20:38:30.610Z
+POST /user/register ::1 2024-10-30T18:03:38.341Z
+POST /user/register ::1 2024-10-30T18:06:08.075Z
+POST /user/register ::1 2024-10-30T18:06:17.230Z
