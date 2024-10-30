@@ -78,32 +78,34 @@ router.get('/alluser',async(req,resp)=>{
   }
 })
 
-router.get("/search/:char",async(req,resp)=>{
+router.get("/search/:char?", async (req, resp) => {
   try {
-    const {char} =req.params;
-    if (!char) {
-      const users=await User.find()
-      return resp.status(201).json({
-      success: true,
-      message: "List of all users",
-      data:users
-      });
-      }
-      
-    const users = await User.find({email:new RegExp(char,"i")}).select("-_id -password")
+    const { char } = req.params;
+    
+    // If char is provided, search by email; otherwise, fetch all users
+    const query = char ? { email: new RegExp(char, "i") } : {};
+    const users = await User.find(query).select("-_id -password");
+
+    // Respond with appropriate message based on whether users were found
     if (users.length === 0) {
       return resp.status(201).json({
-      success: true,
-      message: "No users found with the specified criteria.",
-      user: users,
+        success: true,
+        message: "No users found with the specified criteria.",
+        user: users,
       });
-      }
-      
-    return resp.status(200).json({success:true,message:"User filtered on the basis of your search",user:users})
+    }
+    
+    return resp.status(200).json({
+      success: true,
+      message: char 
+        ? "Users filtered on the basis of your search" 
+        : "All users listed",
+      user: users
+    });
   } catch (error) {
-    return resp.status(400).json({success:false,message:error.message})
+    return resp.status(400).json({ success: false, message: error.message });
   }
-})
+});
 
 
 
