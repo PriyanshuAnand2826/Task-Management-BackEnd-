@@ -5,6 +5,7 @@ dotenv.config();
 const { User } = require("../schemas/UserSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require('../middlewares/authMiddleware')
 
 //register api
 router.post("/register", async (req, resp) => {
@@ -107,6 +108,33 @@ router.get("/search/:char?", async (req, resp) => {
   }
 });
 
+
+
+router.put('/update',authMiddleware,async(req,resp)=>{
+  const {name,email,oldpassword,newpassword} = req.body;
+  const {user} = req
+  try {
+    const userToupdate= await User.findById(user)
+    //console.log(userToupdate)
+    if(userToupdate){
+    const  isMatch = await bcrypt.compare(oldpassword,userToupdate.password)
+    if(isMatch){
+      const hashedPassword = await bcrypt.hash(newpassword, 10)
+      const updatedUser = await User.findByIdAndUpdate(user, { name, email,password:hashedPassword},{new:true})
+      return resp.status(200).json({success:true,message:"User details updated successfully",updateDetails:updatedUser})
+    }
+    else{
+      return resp.status(400).json({success:false,message:"Old password is incorrect"})
+    }
+    }
+    return resp.status(201).json({success:false,message:"User Not Found"})
+    
+     
+  } catch (error) {
+    console.log(error)
+    return resp.status(400).json({success:false,message:"Internal Serval Error",error:error.message})
+  }
+})
 
 
 module.exports = router;
