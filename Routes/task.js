@@ -110,6 +110,8 @@ router.put("/update/:id", async (req, resp) => {
   }
 });
 
+//adding board
+
 router.put("/addboard",authMiddleware,async (req, resp) => {
   try {
     const { assign } = req.body;
@@ -156,5 +158,20 @@ router.delete("/delete/:id", async (req, resp) => {
     return resp.status(400).json({ success: false, message: error.message });
   }
 });
+
+
+router.get('/viewtask/:id',async(req,resp)=>{
+  try {
+    const {id} =req.params;
+    const task= await Task.findById(id)
+    if(!task){
+      return resp.status(404).json({success:false,message:"Task does not exist"})
+    }
+    return resp.status(201).json({success:true,message:"task refelected",data:task})
+  } catch (error) {
+    return resp.status(400)
+    
+  }
+})
 
 module.exports = router;
