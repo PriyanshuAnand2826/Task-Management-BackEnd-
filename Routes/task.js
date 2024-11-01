@@ -52,7 +52,7 @@ router.post("/create", authMiddleware, async (req, resp) => {
 });
 
 //getting user indiviual task
-router.get("/getjobs", authMiddleware, async (req, resp) => {
+router.get("/gettask", authMiddleware, async (req, resp) => {
   try {
     const { user } = req;
     console.log(user);
