@@ -119,6 +119,9 @@ router.put("/addboard",authMiddleware,async (req, resp) => {
     let emailString = assign;
     let email = emailString.replace(/"/g, "");
     const assign_user = await User.findOne({ email });
+    if(!assign_user){
+      return resp.status(404).json({ success: false, message: "User not found"})
+    }
     const result = await Task.updateMany(
         { creator: user }, // Find tasks with the specified creator ID
         { $addToSet: { creator: assign_user._id }

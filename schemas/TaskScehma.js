@@ -1,6 +1,6 @@
 const mongoose =  require('mongoose');
-const now = new Date(Date.now());
-const formattedDate2 = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+// const now = new Date(Date.now());
+// const formattedDate2 = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
 // console.log(formattedDate2); // Output: "28/10/2024"
 
 const taskNameSchema = new mongoose.Schema({
@@ -18,11 +18,11 @@ const taskSchema=new mongoose.Schema({
         required:true
     },
     createddate:{
-        type:String,
-        default:formattedDate2
+        type:Date,
+        default:Date.now()
     },
     duedate:{
-        type:String
+        type:Date
 
     },
     tasktype:{
