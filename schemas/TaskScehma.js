@@ -5,7 +5,8 @@ const mongoose =  require('mongoose');
 
 const taskNameSchema = new mongoose.Schema({
     taskn: { type: String, required: true },
-    checked: { type: Boolean, required: true },
+    checked: { type: Boolean },
+    id: { type: Number },
   });
   
 const taskSchema=new mongoose.Schema({
