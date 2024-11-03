@@ -37,6 +37,7 @@ router.post("/create", authMiddleware, async (req, resp) => {
         creator: [user, assign_user._id],
         creator_name: name,
         assignee_name: assign_user.name,
+        assignee_email:email
       });
       task.save();
     }
@@ -76,6 +77,7 @@ router.get("/gettask", authMiddleware, async (req, resp) => {
 router.put("/update/:id", async (req, resp) => {
   try {
     const { id } = req.params;
+    const taskData = await Task.findById(id)
     const { taskname, tasktype, priority, duedate, taskdata, assign } =
       req.body;
     let task;
@@ -105,7 +107,7 @@ router.put("/update/:id", async (req, resp) => {
     }
     return resp
       .status(200)
-      .json({ success: true, message: "Update Successfully" });
+      .json({ success: true, message: "Update Successfully"});
   } catch (error) {
     return resp.status(400).json({ success: false, message: error.message });
   }
